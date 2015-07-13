@@ -12,6 +12,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors: []});
 });
 
+router.get('/author', function(req, res){
+	res.sendFile('/views/author.ejs');
+})
+
 // Autoload de comandos con ids
 router.param('quizId', quizController.load);  // autoload :quizId
 router.param('commentId', commentController.load);  // autoload :commentId
@@ -43,7 +47,7 @@ router.delete('/quizes/:quizId(\\d+)',     sessionController.loginRequired, quiz
 // Definición de rutas de comentarios
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
-router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
 	                                    sessionController.loginRequired, commentController.ownershipRequired, commentController.publish);
 
 module.exports = router;
